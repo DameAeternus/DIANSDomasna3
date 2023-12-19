@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+  <script>
+    $(document).ready(function () {
+      $('#signIn').on('click', function (e) {
+        e.preventDefault();
+        $('#wrongPass').hide();
+        $.ajax({
+          url: "/customer/logon.html", // use the correct URL for login processing
+          type: 'POST',
+          data: $('#loginForm').serialize()
+        }).success(function (response) {
+          console.log(response);
+          window.location.href = '/userFront'; // redirect the user to the desired page
+        }).error(function (res, status) {
+          console.log(res);
+          $('#wrongPass').show() // display an error message
+        });
+      });
+    })
+  </script>
+</head>
+<body>
+<form id="loginForm" class="form-signin" th:action="@{/customer/logon.html}" method="post">
+  <h2 class="form-signin-heading">Please sign in</h2>
+  <div class="form-group">
+    <label for="username" class="sr-only">Username</label>
+    <input type="text" roleId="username" class="form-control" placeholder="Username" name="username"
+           id="username"
+           required="required" autofocus="autofocus"/>
+  </div>
+  <div class="form-group">
+    <label for="password" class="sr-only">Password</label>
+    <input type="password" roleId="inputPassword" class="form-control" placeholder="Password"
+           id="password"
+           name="password" required="required"/>
+  </div>
+  <div class="form-group">
+    <input type="checkbox" name="remember-me" id="remember-me"/> Remember me
+  </div>
+  <button id="signIn" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+</form>
+</body>
+</html>

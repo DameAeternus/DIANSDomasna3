@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- admin.html -->
+<h1>Admin Page</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Price</th>
+        <th>Rating</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- loop through the wines and display them in rows -->
+    <tr th:each="wine : ${wines}">
+        <td th:text="${wine.name}"></td>
+        <td th:text="${wine.type}"></td>
+        <td th:text="${wine.price}"></td>
+        <td th:text="${wine.rating}"></td>
+        <td>
+            <!-- add buttons to edit or remove each wine -->
+            <button th:onclick="'editWine(' + ${wine.id} + ')'">Edit</button>
+            <button th:onclick="'deleteWine(' + ${wine.id} + ')'">Delete</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<!-- add a button to add a new wine -->
+<button onclick="addWine()">Add Wine</button>
+<!-- add a form to enter the wine details -->
+<form id="wineForm" style="display: none">
+    <input type="hidden" id="wineId" name="wineId">
+    <label for="wineName">Name:</label>
+    <input type="text" id="wineName" name="wineName" required>
+    <label for="wineType">Type:</label>
+    <input type="text" id="wineType" name="wineType" required>
+    <label for="winePrice">Price:</label>
+    <input type="number" id="winePrice" name="winePrice" required>
+    <label for="wineRating">Rating:</label>
+    <input type="number" id="wineRating" name="wineRating" required>
+    <input type="submit" value="Save">
+</form>
+</body>
+</html>
